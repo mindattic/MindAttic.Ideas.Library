@@ -1,0 +1,18 @@
+<Solution>
+  <Folder Name="/Themes/">
+    <Project Path="Themes/Cyberspace/MindAttic.Ideas.Theme.Cyberspace.csproj" />
+  </Folder>
+  <Folder Name="/Plugins/">
+    <Project Path="Plugins/OutfitFont/MindAttic.Ideas.Plugin.OutfitFont.csproj" />
+    <Project Path="Plugins/AtticFont/MindAttic.Ideas.Plugin.AtticFont.csproj" />
+    <Project Path="Plugins/BackHomeM/MindAttic.Ideas.Plugin.BackHomeM.csproj" />
+    <Project Path="Plugins/Cyberspace/MindAttic.Ideas.Plugin.Cyberspace.csproj" />
+    <Project Path="Plugins/SacredGeometry/MindAttic.Ideas.Plugin.SacredGeometry.csproj" />
+    <Project Path="Plugins/Tooltip/MindAttic.Ideas.Plugin.Tooltip.csproj" />
+    <Project Path="Plugins/TableOfContents/MindAttic.Ideas.Plugin.TableOfContents.csproj" />
+    <Project Path="Plugins/LegionPersonas/MindAttic.Ideas.Plugin.LegionPersonas.csproj" />
+  </Folder>
+  <Folder Name="/Controls/">
+    <Project Path="Controls/Textbox/MindAttic.Ideas.Control.Textbox.csproj" />
+  </Folder>
+</Solution>

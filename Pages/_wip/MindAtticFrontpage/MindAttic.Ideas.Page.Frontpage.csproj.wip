@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <!-- The MindAttic corporate front page, delivered as a single compiled Page Idea
+       (MindAttic.Ideas.Page.Frontpage.V1 : PageBase). A Razor Class Library that
+       references the frozen Abstractions SDK from the local NuGet feed and, on build, packs itself
+       into MindAttic.Ideas.Page.Frontpage.V1.idea via the `ma-idea` tool. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <AddRazorSupportForMvc>false</AddRazorSupportForMvc>
+    <AssemblyName>MindAttic.Ideas.Page.Frontpage</AssemblyName>
+    <RootNamespace>MindAttic.Ideas.Page.Frontpage</RootNamespace>
+    <Version>1.0.0</Version>
+
+    <!-- Set false to skip the .idea pack step (e.g. when iterating without the local tool restored). -->
+    <PackIdea Condition="'$(PackIdea)' == ''">true</PackIdea>
+    <IdeaOutputDir Condition="'$(IdeaOutputDir)' == ''">$(MSBuildProjectDirectory)\artifacts</IdeaOutputDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- The frozen SDK every Page compiles against (from the local feed). Compile-only:
+         PrivateAssets=all so it never travels in the .idea NOR flows as a NuGet dependency — the
+         host provides Abstractions, so its types unify by identity across both consumption paths. -->
+    <PackageReference Include="MindAttic.Ideas.Abstractions" Version="1.0.0" PrivateAssets="all" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Self-contained content: the accordion data, the ecosystem SVG, and the stylesheet all ship
+         inside the assembly so the Page renders with no database or external file dependency. -->
+    <EmbeddedResource Include="Data\hub.json" />
+    <EmbeddedResource Include="Data\ecosystem.svg" />
+    <EmbeddedResource Include="Resources\frontpage.css" />
+  </ItemGroup>
+
+  <!-- After build, pack this RCL into a .idea via the locally-restored `ma-idea` tool. The reference
+       directories are handed to the packer's reflection-only resolver so it can read the Abstractions
+       attributes (Abstractions is host-provided and never copied beside the build output). -->
+  <Target Name="PackIdeaPackage" AfterTargets="Build" Condition="'$(PackIdea)' == 'true'">
+    <ItemGroup>
+      <_IdeaRefDir Include="@(ReferencePath->'%(RootDir)%(Directory)'->Distinct())" />
+    </ItemGroup>
+    <!-- Trailing '.' guards against the final ref dir's trailing backslash escaping the closing quote. -->
+    <Exec Command="dotnet tool run ma-idea -- pack --assembly &quot;$(TargetPath)&quot; --wwwroot &quot;$(MSBuildProjectDirectory)\wwwroot&quot; --data &quot;$(MSBuildProjectDirectory)\seed&quot; --out &quot;$(IdeaOutputDir)&quot; --refs &quot;@(_IdeaRefDir);.&quot;"
+          WorkingDirectory="$(MSBuildProjectDirectory)" />
+  </Target>
+
+</Project>
