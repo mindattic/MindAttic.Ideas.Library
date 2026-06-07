@@ -70,7 +70,7 @@ three of its consumers (raw HTML pages, standalone Blazor apps, and the CMS).
    │                                                                                   │
    │   Themes/      ThemeBase   → ThemeCssUrls; chrome + ONE @Body hole                │
    │   Widgets/     WidgetBase  → StylesheetUrls / inline markup; self-contained       │
-   │   Controls/    ControlBase → typed [Parameter] props + pass-through Attributes    │
+   │                (ControlBase in Abstractions; no standalone Controls folder yet)   │
    │   Pages/_wip/  frozen page source (*.csproj.wip; NOT built, NOT in .slnx)         │
    │                                                                                   │
    │   each component: assets/ (the bundle) ── pack ──► dist/*.idea                    │
@@ -80,8 +80,9 @@ three of its consumers (raw HTML pages, standalone Blazor apps, and the CMS).
 
 ### 4.1 Projects {#MAIL-§4.1}
 The solution ([`MindAttic.Ideas.Library.slnx`](../MindAttic.Ideas.Library.slnx)) is 18 component RCLs in
-three solution folders — **7 Themes, 10 Widgets, 1 Control**. The full enumeration (key, kind, version,
-assembly, packed artifact, mount, composition edges) is L5 canon in
+two solution folders — **7 Themes, 11 Widgets** (no standalone Controls: Textbox was folded from Control
+to Widget in MAI-A19; `ControlBase` remains available in Abstractions for future use). The full
+enumeration (key, kind, version, assembly, packed artifact, mount, composition edges) is L5 canon in
 [`docs/data/components.json`](data/components.json) — not restated here. Common settings and the single
 Abstractions reference live once in [`Directory.Build.props`](../Directory.Build.props).
 
@@ -157,19 +158,20 @@ Themes, Widgets, and Controls ship as `.idea`. A Page is a CMS database record. 
 
 | Aspect | Status | Evidence (2026-06-07) |
 |---|---|---|
-| Full solution compiles | ✅ | `dotnet build -c Release MindAttic.Ideas.Library.slnx` → **Build succeeded, 0 Warning(s), 0 Error(s)**; all 18 component DLLs + Abstractions emitted (net10.0, SDK 10.0.300). |
-| Smallest widget builds standalone | ✅ | `dotnet build -c Release Widgets/HelloWorld` → succeeded, 0/0. |
+| Full solution compiles | ✅ | `dotnet build -c Release MindAttic.Ideas.Library.slnx` → **Build succeeded, 0 Warning(s), 0 Error(s)**; all 18 component DLLs + Abstractions emitted (net10.0). Verified 2026-06-07. |
+| Smallest widget builds standalone | ✅ | `dotnet build -c Release Widgets/HelloWorld` → succeeded, 0/0. Verified 2026-06-07. |
 | Packed artifacts present | ✅ | [`dist/`](../dist) holds 18 `*.idea` — one per catalogued component in [`components.json`](data/components.json). |
 | Automated tests | ⬜ | No test project exists in the repo (RCL component library; verification is build + the HelloWorld interactive smoke test + per-component `demo.html`). See [MAIL-§8](#MAIL-§8). |
 | `pack` round-trip | 🟡 | `dist/*.idea` exist and predate this audit; the pack command (README) was **not** re-run during this Codex pass. |
-| Plugin→Widget rename | 🟡 | Source renamed `Plugins/ → Widgets/` and Plugin→Widget in namespaces/types (staged in the working tree); a few README/`Pages/_wip` mentions of "Plugin" remain as historical prose. |
+| Plugin→Widget rename | ✅ | Rename complete: `Widgets/` + `MindAttic.Ideas.Widget.*` namespaces throughout; solution builds clean 0/0. Frozen `Pages/_wip` prose retains "Plugin" as historical record (intentional). MAIL-A1. |
+| Textbox Control→Widget fold | ✅ | Textbox lives under `Widgets/`, `@inherits WidgetBase`, namespace `MindAttic.Ideas.Widget.Textbox`; no `Controls/` folder on disk. `components.json` and `.slnx` both record Widget kind. MAIL-A2. |
 
 ## 7. Active frontier {#MAIL-§7}
 
 - [RFC 0001](rfc/0001-component-test-harness.md) — a smoke-test harness so component "done" is build-proven,
   not asserted (closing the ⬜ in [MAIL-§6](#MAIL-§6) against [HOUSE-LAW-8](../../MindAttic.HouseRules.md)).
+- [RFC 0002](rfc/0002-uiux-source-to-idea-pipeline.md) — raw UiUx source → `.idea` generator (deferred).
 - Port the frozen [`Pages/_wip`](../Pages/_wip/README.md) sources into CMS Page records / compiled Widgets.
-- Terminology cleanup: retire remaining "Plugin" prose now that the type is "Widget".
 - Backlog and acceptance criteria: [`USER_STORIES.md`](USER_STORIES.md).
 
 ## 8. Quality bar {#MAIL-§8}
