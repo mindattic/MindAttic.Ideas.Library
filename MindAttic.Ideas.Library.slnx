@@ -19,8 +19,6 @@
     <Project Path="Widgets/LegionPersonas/MindAttic.Ideas.Widget.LegionPersonas.csproj" />
     <Project Path="Widgets/Frontpage/MindAttic.Ideas.Widget.Frontpage.csproj" />
     <Project Path="Widgets/HelloWorld/MindAttic.Ideas.Widget.HelloWorld.csproj" />
-  </Folder>
-  <Folder Name="/Controls/">
-    <Project Path="Controls/Textbox/MindAttic.Ideas.Control.Textbox.csproj" />
+    <Project Path="Widgets/Textbox/MindAttic.Ideas.Widget.Textbox.csproj" />
   </Folder>
 </Solution>

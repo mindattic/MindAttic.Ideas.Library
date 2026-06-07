@@ -25,8 +25,7 @@ Three packagings of one thing — not three projects. No duplication, no cross-r
 ```
 Themes/      Cyberspace
 Widgets/     OutfitFont, AtticFont, SacredGeometry, Tooltip, BackHomeM, TableOfContents, Cyberspace (effects),
-             LegionPersonas, Frontpage, HelloWorld
-Controls/    Textbox
+             LegionPersonas, Frontpage, HelloWorld, Textbox
 Pages/_wip/  frozen page source preserved losslessly (LegionPersonas, MindAtticFrontpage); not buildable,
              not in the solution — superseded by the widgets above
 dist/        packed *.idea — the CMS seeds these as optional installable content

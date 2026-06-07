@@ -1,12 +1,12 @@
-@namespace MindAttic.Ideas.Control.Textbox
-@inherits ControlBase
+@namespace MindAttic.Ideas.Widget.Textbox
+@inherits WidgetBase
 
-@* MindAttic.Ideas.Control.Textbox.V1 — an Angular-Material-style OUTLINED text field: the label sits in
-   the box at rest and floats up to OVERLAP the top border on focus/fill. Demonstrates a Control that is
+@* MindAttic.Ideas.Widget.Textbox.V1 — an Angular-Material-style OUTLINED text field: the label sits in
+   the box at rest and floats up to OVERLAP the top border on focus/fill. Demonstrates a Widget that is
    configured like a React/Angular component — typed [Parameter] props (Label / Type / Value) PLUS
-   pass-through attributes (ControlBase.Attributes spread onto the <input>, e.g. required, maxlength,
-   data-*). Styled by its own bundled css, served from this .idea's wwwroot at /_ideas/Control/textbox/1/. *@
-<link rel="stylesheet" href="/_ideas/Control/textbox/1/textbox.css" />
+   pass-through attributes (WidgetBase.Attributes spread onto the <input>, e.g. required, maxlength,
+   data-*). Styled by its own bundled css, served from this .idea's wwwroot at /_ideas/Widget/textbox/1/. *@
+<link rel="stylesheet" href="/_ideas/Widget/textbox/1/textbox.css" />
 <div class="ma-field">
     <input id="@_id" class="ma-field-input" type="@Type" value="@Value"
            placeholder=" " @attributes="Attributes" />

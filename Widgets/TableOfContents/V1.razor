@@ -8,6 +8,8 @@
    so it works for ANY page the moment that page has children. *@
 @if (_children.Count > 0)
 {
+    @* Styling loads only when the ToC actually renders (leaf pages emit nothing at all). *@
+    <link rel="stylesheet" href="/_ideas/Widget/tableofcontents/1/toc.css" />
     <nav class="ma-toc" aria-label="Table of contents">
         <ul class="ma-toc-list">
             @foreach (var child in _children)

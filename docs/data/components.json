@@ -19,6 +19,6 @@
     { "id": "widget.frontpage", "key": "frontpage", "kind": "Widget", "version": 1, "displayName": "MindAttic Frontpage", "assembly": "MindAttic.Ideas.Widget.Frontpage", "artifact": "MindAttic.Ideas.Widget.Frontpage.V1.idea", "interactive": true, "uses": ["tooltip"], "notes": "Frontpage hub widget (SiteNav/NavTabItem, hub.json seed data, cover images)." },
     { "id": "widget.legionpersonas", "key": "legionpersonas", "kind": "Widget", "version": 1, "displayName": "Legion Personas", "assembly": "MindAttic.Ideas.Widget.LegionPersonas", "artifact": "MindAttic.Ideas.Widget.LegionPersonas.V1.idea", "interactive": true, "uses": ["sacredgeometry"], "notes": "Persona gallery widget (PersonaCard/PersonaDetail, personas.json)." },
 
-    { "id": "control.textbox", "key": "textbox", "kind": "Control", "version": 1, "displayName": "textbox", "assembly": "MindAttic.Ideas.Control.Textbox", "artifact": "MindAttic.Ideas.Control.Textbox.V1.idea", "mount": "/_ideas/Control/textbox/1", "notes": "Angular-Material-style outlined text field; typed [Parameter] props plus pass-through attributes." }
+    { "id": "widget.textbox", "key": "textbox", "kind": "Widget", "version": 1, "displayName": "Textbox", "assembly": "MindAttic.Ideas.Widget.Textbox", "artifact": "MindAttic.Ideas.Widget.Textbox.V1.idea", "mount": "/_ideas/Widget/textbox/1", "notes": "Angular-Material-style outlined text field; typed [Parameter] props plus pass-through attributes. Folded from a Control to a Widget (MAI-A19)." }
   ]
 }
