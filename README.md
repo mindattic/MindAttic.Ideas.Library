@@ -1,7 +1,7 @@
 # MindAttic.Ideas.Library
 
 The **first-party library of `.idea` components** for [MindAttic.Ideas](../MindAttic.Ideas) — one home
-for every Theme, Plugin, Control, and Page that ships *with* the CMS, instead of one git repo per piece.
+for every Theme, Widget, Control, and Page that ships *with* the CMS, instead of one git repo per piece.
 
 This repo is **separate from the CMS host**. The CMS (`MindAttic.Ideas`) is standalone and never references
 anything here — it only installs the packed `.idea` files as **optional** content. The only thing these
@@ -24,9 +24,11 @@ Three packagings of one thing — not three projects. No duplication, no cross-r
 
 ```
 Themes/      Cyberspace
-Plugins/     OutfitFont, AtticFont, SacredGeometry, Tooltip, BackHomeM, TableOfContents, Cyberspace (effects)
+Widgets/     OutfitFont, AtticFont, SacredGeometry, Tooltip, BackHomeM, TableOfContents, Cyberspace (effects),
+             LegionPersonas, Frontpage, HelloWorld
 Controls/    Textbox
-Pages/       MindAtticFrontpage, LegionPersonas
+Pages/_wip/  frozen page source preserved losslessly (LegionPersonas, MindAtticFrontpage); not buildable,
+             not in the solution — superseded by the widgets above
 dist/        packed *.idea — the CMS seeds these as optional installable content
 ```
 

@@ -2,7 +2,7 @@
 
   <!-- SacredGeometry — a small, code-only widget (capability activator): emits its renderer + auto-init
        driver so every <canvas data-sacred-shape="N"> animates. Common props + Abstractions reference come
-       from ../../Directory.Build.props. Identity by convention: namespace tail + V{n} → Plugin/sacredgeometry/1.
+       from ../../Directory.Build.props. Identity by convention: namespace tail + V{n} → Widget/sacredgeometry/1.
        Its JS lives in assets/ (a plain folder, NOT wwwroot/), packed as the .idea wwwroot. -->
   <PropertyGroup>
     <StaticWebAssetsEnabled>false</StaticWebAssetsEnabled>

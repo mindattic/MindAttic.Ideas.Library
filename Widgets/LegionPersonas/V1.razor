@@ -1,20 +1,20 @@
-@namespace MindAttic.Ideas.Plugin.LegionPersonas
-@inherits PluginBase
+@namespace MindAttic.Ideas.Widget.LegionPersonas
+@inherits WidgetBase
 @attribute [Idea(DisplayName = "Legion Personas", RenderMode = CmsRenderMode.InteractiveServer)]
-@attribute [Uses(ContentKind.Plugin, "sacredgeometry", 1)]
+@attribute [Uses(ContentKind.Widget, "sacredgeometry", 1)]
 
 @* ============================================================================================
-   MindAttic.Ideas.Plugin.LegionPersonas.V1 — the MindAttic.Legion 1024-persona gallery as a single
+   MindAttic.Ideas.Widget.LegionPersonas.V1 — the MindAttic.Legion 1024-persona gallery as a single
    compiled Page shipped as a .idea. Identity by convention: namespace tail "LegionPersonas" => key
    "legionpersonas", class "V1" => version 1. The persona library is the embedded personas.json
    (PersonaData); each card's live avatar is a SacredGeometry shape, animated by the SacredGeometry
-   Plugin (composed BY STRING ID — never compiled against). The page wears the Cyberspace theme,
+   Widget (composed BY STRING ID — never compiled against). The page wears the Cyberspace theme,
    chosen in data/page.json. All CSS is scoped under .legion-personas so it never leaks into the host.
    ============================================================================================ *@
 
 <div class="legion-personas">
 @* Switch ON the SacredGeometry capability: loads the renderer + the canvas[data-sacred-shape] animator. *@
-<CmsInclude Ref="MindAttic.Ideas.Plugin.SacredGeometry.V1" />
+<CmsInclude Ref="MindAttic.Ideas.Widget.SacredGeometry.V1" />
 
 <div class="gallery">
     <aside class="filters">
