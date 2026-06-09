@@ -23,9 +23,11 @@ Three packagings of one thing — not three projects. No duplication, no cross-r
 ## Layout
 
 ```
-Themes/      Cyberspace
-Widgets/     OutfitFont, AtticFont, SacredGeometry, Tooltip, BackHomeM, TableOfContents, Cyberspace (effects),
-             LegionPersonas, Frontpage, HelloWorld, Textbox
+Themes/      Cyberspace, Light, Dark, Spring, Summer, Autumn, Winter
+Widgets/     MindAttic-specific: OutfitFont, AtticFont, SacredGeometry, Tooltip, BackHomeM,
+             TableOfContents, Cyberspace (effects), LegionPersonas, Frontpage, HelloWorld, Textbox
+             Baseline set (MAIL-A3): NavMenu, Breadcrumbs, Hero, Card, Accordion, Tabs, Gallery,
+             Carousel, Callout, CodeBlock, VideoEmbed, ContactForm, SocialLinks, BackToTop, Footer
 Pages/_wip/  frozen page source preserved losslessly (LegionPersonas, MindAtticFrontpage); not buildable,
              not in the solution — superseded by the widgets above
 dist/        packed *.idea — the CMS seeds these as optional installable content

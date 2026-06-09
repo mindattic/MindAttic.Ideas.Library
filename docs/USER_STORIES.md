@@ -4,7 +4,7 @@ project: MindAttic.Ideas.Library
 code: MAIL
 layer: stories
 status: living
-updated: 2026-06-07
+updated: 2026-06-09
 ---
 
 # MindAttic.Ideas.Library — User Stories
@@ -31,6 +31,14 @@ updated: 2026-06-07
   the Razor SDK never causes cross-host static-asset collisions. *Given `StaticWebAssetsEnabled=false` and
   `assets/`, When the solution builds, Then no static-web-asset collision occurs.* *(verified by the clean
   solution build; rule at [MAIL-LAW-5](BIBLE.md#MAIL-LAW-5).)*
+- **MAIL-US-A4 🟡** As a site builder, I can compose ordinary-website UI from a **baseline widget set**
+  ([MAIL-A3](AMENDMENTS.md#MAIL-A3)): NavMenu, Breadcrumbs, Hero, Card, Accordion, Tabs (incl. the
+  mindattic.com tab-board variant), Gallery (incl. linked books-grid + lightbox), Carousel, Callout,
+  CodeBlock, VideoEmbed, ContactForm, SocialLinks, BackToTop, Footer (pin-when-short). *Given the 15
+  baseline projects, When the solution builds and each packs, Then 15 `dist/*.idea` exist and every widget
+  carries a raw-HTML `demo.html` proving the bundle stands alone.* *(build + pack verified 2026-06-09
+  — `dotnet build -c Release` 0/0 and 33 artifacts in `dist/`; 🟡 until the per-widget demos and a live
+  CMS render are observed per [MAIL-§8](BIBLE.md#MAIL-§8).)*
 
 ## Epic B — The one bundle, three consumers
 
@@ -42,10 +50,11 @@ updated: 2026-06-07
   and get identical output to the CMS. *Given the component RCL, When an app references it, Then it renders
   the same bundle.* *(no standalone-app harness in this repo yet; the RCLs build and the bundle is shared by
   construction — not independently observed here.)*
-- **MAIL-US-B3 🟡** As the CMS, I can upload a packed `.idea` and serve its bundle under
-  `/_ideas/<Kind>/<key>/<version>/`. *Given `dist/<component>.idea`, When the CMS installs it, Then the
-  bundle is served at the mount.* *(18 `.idea` artifacts exist in [`dist/`](../dist); install/serve happens
-  in the CMS repo and was not exercised during this Codex pass.)*
+- **MAIL-US-B3 ✅** As the CMS, I can upload a packed `.idea` and serve its bundle under
+  the component mount. *Given a packed artifact in [`dist/`](../dist), When the CMS installs it, Then the
+  bundle is served at the mount.* *(verified by an observed live run 2026-06-09: all 33 `dist/*.idea` installed through the
+  CMS startup library path and the rendered frontpage served `/_ideas/Widget/tabs/1/tabs.css`,
+  `/_ideas/Theme/cyberspace/1/theme.css`, … with HTTP 200 — see MAI BIBLE §6 live-render evidence.)*
 
 ## Epic C — Composition by string id
 
@@ -63,15 +72,16 @@ updated: 2026-06-07
 
 - **MAIL-US-D1 ✅** As a maintainer, I can read one catalog of every shipped component (key, kind, version,
   assembly, artifact, composition). *Given [`components.json`](data/components.json), When I open it, Then
-  all 18 components are enumerated and validate against their schema.* *(verified by
+  all 33 components are enumerated and validate against their schema.* *(verified by
   `tools/codex.ps1 doctor` schema + id-uniqueness checks.)*
 - **MAIL-US-D2 ✅** As a maintainer, every component versions by whole numbers only. *Given `<Version>` and
   the `V{n}` class, When I inspect any component, Then the version is a whole number.* *(verified by
   [`Directory.Build.props`](../Directory.Build.props) `<Version>1.0.0</Version>` + `V1` classes;
   [HOUSE-LAW-1](../../MindAttic.HouseRules.md).)*
-- **MAIL-US-D3 🟡** As a maintainer, I can re-`pack` any component into a fresh `.idea`. *Given a built DLL
-  + `assets/`, When I run the pack command, Then a `dist/*.idea` is produced.* *(`dist/*.idea` exist but
-  the pack round-trip was not re-run during this Codex pass.)*
+- **MAIL-US-D3 ✅** As a maintainer, I can re-`pack` any component into a fresh `.idea`. *Given a built DLL
+  + `assets/`, When I run the pack command, Then a `dist/*.idea` is produced.* *(verified by the pack re-run 2026-06-09: the 15
+  baseline widgets were packed via `ma-idea pack --wwwroot assets` and `ma-idea verify ./dist` reports
+  "OK — every declared dependency resolves" across all 33 artifacts.)*
 
 ## Epic E — Pages stay records
 
@@ -82,9 +92,10 @@ updated: 2026-06-07
 
 ## Priority backlog
 
-1. **MAIL-US-B2 / MAIL-US-D3** — a component smoke-test + pack-round-trip harness so "done" is proven, not
-   asserted ([RFC 0001](rfc/0001-component-test-harness.md)) — closes the ⬜ test gap in [MAIL-§6](BIBLE.md#MAIL-§6).
-2. **MAIL-US-B3** — an install/serve assertion exercised from a host (likely in the CMS repo).
+1. **MAIL-US-B2** — a standalone-Blazor-app smoke harness ([RFC 0001](rfc/0001-component-test-harness.md))
+   — the remaining ⬜ test gap in [MAIL-§6](BIBLE.md#MAIL-§6). (D3's pack round-trip and B3's
+   install/serve were proven 2026-06-09.)
+2. **MAIL-US-A4** — observe the 15 baseline-widget demos interactively (build/pack already proven).
 3. Port `Pages/_wip` sources into Page records / compiled Widgets (see [`Pages/_wip/README.md`](../Pages/_wip/README.md)).
 
 ### Audit log

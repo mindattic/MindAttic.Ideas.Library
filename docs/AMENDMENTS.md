@@ -44,3 +44,34 @@ primitives that must not carry markup). MAI-A19 tracked this decision in the CMS
 **Impact on §4.1.** The solution count is **7 Themes, 11 Widgets, 0 Controls** (not "7 Themes, 10 Widgets,
 1 Control" as previously stated). Bible §4.1 updated accordingly. No breaking change: the `.idea`
 artifact key/version and mount path are identical (`widget.textbox`, V1, `/_ideas/Widget/textbox/1`).
+
+## MAIL-A3 — The baseline widget set (supersedes §4.1 "7 Themes, 11 Widgets") {#MAIL-A3}
+
+**What changed.** Fifteen general-purpose **baseline widgets** were added so the CMS can build and
+maintain ordinary websites from reusable parts instead of bespoke markup: NavMenu, Breadcrumbs, Hero,
+Card, Accordion, Tabs, Gallery, Carousel, Callout, CodeBlock, VideoEmbed, ContactForm, SocialLinks,
+BackToTop, and Footer. The solution count is now **7 Themes, 26 Widgets**. All are catalogued in
+[`components.json`](data/components.json) (notes prefixed "Baseline set (MAIL-A3)").
+
+**Why.** The prior catalog was MindAttic-specific (fonts, effects, persona gallery). The product goal —
+many sites from one CMS, no monolith web apps — needs a vanilla kit: navigation, banners, cards,
+collapsibles, tab boards, image grids, sliders, notices, code chrome, video, contact, social icons,
+scroll-to-top, and a footer. The set was sized against recreating **mindattic.com** as a Data page:
+Tabs (`ma-tabs-board`) is its project board, Gallery its books grid, Footer its pin-when-short bar.
+
+**Design rules the set introduced (now load-bearing for future widgets):**
+- **Activator-first.** Where possible a widget is an asset-only *capability activator* (the Tooltip
+  model): drop the token once and plain author HTML gains the behavior via `ma-*` classes /
+  `data-*` attributes. Free-form pages stay free-form; layout stays plain flex in author HTML.
+- **String parameters only.** Razor-widget `[Parameter]`s are strings (data-page token attributes
+  arrive as strings; typed coercion is RFC 0001 roadmap in the CMS). No widget depends on
+  `ChildContent` (data-page tokens never carry it).
+- **Images are inline base64 CSS classes.** A widget that shows an image accepts the page-convention
+  class (`imageclass=`, `.ma-gallery-tile img-*`, `.ma-slide img-*`) and never requires a file URL;
+  icons/arrows are inline SVG path data or CSS glyphs. No external requests, no icon files.
+- **Per-site reuse via settings.** Site-chrome widgets (NavMenu, ContactForm, SocialLinks) read
+  `ISiteContext.GetSetting` fallbacks (`nav.*`, `contact.action`, `social.*`) so one theme token
+  serves every site.
+
+**Migration / status.** Additive only — no existing component changed identity. All 33 components
+build clean (0/0) and pack to [`dist/`](../dist).
