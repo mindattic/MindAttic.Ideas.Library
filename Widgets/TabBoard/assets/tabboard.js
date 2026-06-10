@@ -11,13 +11,26 @@
  *       TabBoard.images        -> name->src registry consulted before generating art
  *       TabBoard.refresh()     -> re-wire after the DOM changes (also runs automatically)
  *
- * Verbatim except: the empty PROJECT_IMAGES map became the TabBoard.images registry.
+ * Placement options (set by the include token, e.g. {{ Widget.TabBoard alwaysShowTabPage=true }};
+ * the widget emits them onto window.TabBoardConfig):
+ *   alwaysShowTabPage — every board keeps a selected item visible: clicking the open tab no longer
+ *                       collapses it, and a board with no saved selection opens its first tab.
+ *                       Selection still persists per section in localStorage either way.
+ *
+ * Verbatim except: the empty PROJECT_IMAGES map became the TabBoard.images registry, and the two
+ * alwaysShowTabPage hooks marked CONFIG below.
  * Safe to load more than once. No dependencies, no external requests. */
 (function () {
   'use strict';
   if (window.TabBoard) return;
 
   var images = {};
+
+  // CONFIG: read lazily so it works no matter which order the engine and the token's inline
+  // config script executed in.
+  function isAlwaysShow() {
+    return !!(window.TabBoardConfig && window.TabBoardConfig.alwaysShowTabPage);
+  }
 
     var PROJECT_ART_PALETTES = [
       ['#0f2027', '#2c5364', '#71f0c8'],
@@ -283,6 +296,8 @@
         if (!tabPage) return;
         var section = tabButton.closest('.board-section') || document;
         var wasOpen = tabButton.classList.contains('is-open');
+        // CONFIG: under alwaysShowTabPage a selected item stays visible — re-clicking it is a no-op.
+        if (wasOpen && isAlwaysShow()) return;
         var openTabButtons = section.querySelectorAll('.tabButton.is-open');
         var openTabPages = section.querySelectorAll('.tabPage.is-open');
         for (var i = 0; i < openTabButtons.length; i++) openTabButtons[i].classList.remove('is-open');
@@ -301,6 +316,23 @@
     // Defer until the entire body has parsed — the .books-grid and other
     // late-DOM sections appear after this inline <script> in source order.
 
+  // CONFIG: under alwaysShowTabPage a board never sits fully collapsed — after restoreSelection
+  // (saved id wins) any section with nothing open opens its FIRST tab.
+  function enforceAlwaysOpen() {
+    if (!isAlwaysShow()) return;
+    var sections = document.querySelectorAll('.board-section');
+    for (var s = 0; s < sections.length; s++) {
+      var section = sections[s];
+      if (section.querySelector('.tabButton.is-open')) continue;
+      var first = section.querySelector('.tabButton[data-target]');
+      if (!first) continue;
+      var page = document.getElementById(first.getAttribute('data-target'));
+      if (!page) continue;
+      first.classList.add('is-open');
+      page.classList.add('is-open');
+    }
+  }
+
   // ── exposure + auto-init (idempotent; re-runs when the host swaps/extends the DOM) ──
   var clicksWired = false;
   var scheduled = false;
@@ -309,6 +341,7 @@
     hydratePlaceholderImages();
     buildSectionKeys();
     restoreSelection();
+    enforceAlwaysOpen();
     if (!clicksWired) { clicksWired = true; wireClicks(); }
   }
   function scheduleRefresh() {

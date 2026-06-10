@@ -9,6 +9,9 @@
   <title>TabBoard — raw assets demo</title>
   <link rel="stylesheet" href="assets/tabboard.css">
   <script src="assets/tabboard.js" defer></script>
+  <!-- What {{ MindAttic.Ideas.Widget.TabBoard alwaysShowTabPage=true }} emits in the CMS:
+       a selected item stays visible (no fully-collapsed boards); selection still persists. -->
+  <script>window.TabBoardConfig = Object.assign(window.TabBoardConfig || {}, { alwaysShowTabPage: true });</script>
   <style>
     body { font-family: system-ui, sans-serif; margin: 2rem; background: #0d1117; color: #e8eaf0; }
     :root { --bg2: #13161b; --bg3: #1a1e25; --border: #2a2f3a; --accent: #6ba3e8; --text: #e8eaf0; --text2: #9aa0b0; }
