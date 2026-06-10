@@ -79,11 +79,12 @@ three of its consumers (raw HTML pages, standalone Blazor apps, and the CMS).
 ```
 
 ### 4.1 Projects {#MAIL-§4.1}
-The solution ([`MindAttic.Ideas.Library.slnx`](../MindAttic.Ideas.Library.slnx)) is 33 component RCLs in
-two solution folders — **7 Themes, 26 Widgets** (no standalone Controls: Textbox was folded from Control
+The solution ([`MindAttic.Ideas.Library.slnx`](../MindAttic.Ideas.Library.slnx)) is 36 component RCLs in
+two solution folders — **7 Themes, 29 Widgets** (no standalone Controls: Textbox was folded from Control
 to Widget in MAI-A19; `ControlBase` remains available in Abstractions for future use). Eleven widgets are
-MindAttic-specific; the other fifteen are the general-purpose **baseline set**
-([MAIL-A3](AMENDMENTS.md#MAIL-A3)) that lets the CMS build ordinary websites from reusable parts. The full
+MindAttic-specific, fifteen are the general-purpose **baseline set** ([MAIL-A3](AMENDMENTS.md#MAIL-A3))
+that lets the CMS build ordinary websites from reusable parts, and three are the **mindattic.com
+verbatim set** ([MAIL-A5](AMENDMENTS.md#MAIL-A5): TabBoard, PinFooter, WebSnapshot). The full
 enumeration (key, kind, version, assembly, packed artifact, mount, composition edges) is L5 canon in
 [`docs/data/components.json`](data/components.json) — not restated here. Common settings and the single
 Abstractions reference live once in [`Directory.Build.props`](../Directory.Build.props).
@@ -161,11 +162,11 @@ this repo at all — the once-parked Pages/_wip tree was deleted as no longer ap
 
 | Aspect | Status | Evidence (2026-06-09) |
 |---|---|---|
-| Full solution compiles | ✅ | `dotnet build -c Release MindAttic.Ideas.Library.slnx` → **Build succeeded, 0 Warning(s), 0 Error(s)**; all 33 component DLLs + Abstractions emitted (net10.0). Verified 2026-06-09. |
+| Full solution compiles | ✅ | `dotnet build -c Release MindAttic.Ideas.Library.slnx` → **Build succeeded, 0 Warning(s), 0 Error(s)**; all 36 component DLLs + Abstractions emitted (net10.0). Verified 2026-06-09. |
 | Smallest widget builds standalone | ✅ | `dotnet build -c Release Widgets/HelloWorld` → succeeded, 0/0. Verified 2026-06-07. |
-| Packed artifacts present | ✅ | [`dist/`](../dist) holds 33 `*.idea` — one per catalogued component in [`components.json`](data/components.json). The 15 baseline-set artifacts were packed (`--wwwroot assets`) and compose-graph verified (`ma-idea verify`) 2026-06-09. |
+| Packed artifacts present | ✅ | [`dist/`](../dist) holds 36 `*.idea` — one per catalogued component in [`components.json`](data/components.json). The 15 baseline-set artifacts were packed (`--wwwroot assets`) and compose-graph verified (`ma-idea verify`) 2026-06-09. |
 | Automated tests | ⬜ | No test project exists in the repo (RCL component library; verification is build + the HelloWorld interactive smoke test + per-component `demo.html`). See [MAIL-§8](#MAIL-§8). |
-| `pack` round-trip | ✅ | Re-run 2026-06-09: 15 baseline widgets packed (`ma-idea pack --wwwroot assets`); `ma-idea verify ./dist` → "OK — every declared dependency resolves" across all 33. |
+| `pack` round-trip | ✅ | Re-run 2026-06-09: 15 baseline widgets packed (`ma-idea pack --wwwroot assets`); `ma-idea verify ./dist` → "OK — every declared dependency resolves" across all 36 (re-verified with the MAIL-A5 set 2026-06-09). |
 | Plugin→Widget rename | ✅ | Rename complete: `Widgets/` + `MindAttic.Ideas.Widget.*` namespaces throughout; solution builds clean 0/0. MAIL-A1. (The frozen Pages/_wip prose that retained "Plugin" was deleted with the tree — MAIL-A4.) |
 | Textbox Control→Widget fold | ✅ | Textbox lives under `Widgets/`, `@inherits WidgetBase`, namespace `MindAttic.Ideas.Widget.Textbox`; no `Controls/` folder on disk. `components.json` and `.slnx` both record Widget kind. MAIL-A2. |
 

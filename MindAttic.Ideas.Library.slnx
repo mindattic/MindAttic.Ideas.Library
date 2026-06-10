@@ -35,5 +35,8 @@
     <Project Path="Widgets/SocialLinks/MindAttic.Ideas.Widget.SocialLinks.csproj" />
     <Project Path="Widgets/BackToTop/MindAttic.Ideas.Widget.BackToTop.csproj" />
     <Project Path="Widgets/Footer/MindAttic.Ideas.Widget.Footer.csproj" />
+    <Project Path="Widgets/TabBoard/MindAttic.Ideas.Widget.TabBoard.csproj" />
+    <Project Path="Widgets/PinFooter/MindAttic.Ideas.Widget.PinFooter.csproj" />
+    <Project Path="Widgets/WebSnapshot/MindAttic.Ideas.Widget.WebSnapshot.csproj" />
   </Folder>
 </Solution>

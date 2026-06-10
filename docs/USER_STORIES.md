@@ -72,7 +72,7 @@ updated: 2026-06-09
 
 - **MAIL-US-D1 ✅** As a maintainer, I can read one catalog of every shipped component (key, kind, version,
   assembly, artifact, composition). *Given [`components.json`](data/components.json), When I open it, Then
-  all 33 components are enumerated and validate against their schema.* *(verified by
+  all 36 components are enumerated and validate against their schema.* *(verified by
   `tools/codex.ps1 doctor` schema + id-uniqueness checks.)*
 - **MAIL-US-D2 ✅** As a maintainer, every component versions by whole numbers only. *Given `<Version>` and
   the `V{n}` class, When I inspect any component, Then the version is a whole number.* *(verified by

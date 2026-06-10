@@ -95,3 +95,24 @@ Page records later") was **deleted**. The rule itself stands — Pages are CMS d
 
 **Doc impact.** Bible §3/§4/glossary and story MAIL-US-E1 (🗑️ cut) updated; the "port `Pages/_wip`"
 backlog item is retired.
+
+## MAIL-A5 — The mindattic.com verbatim set: TabBoard, PinFooter, WebSnapshot (supersedes §4.1 "26 Widgets") {#MAIL-A5}
+
+**What changed (2026-06-09).** Three widgets were extracted **verbatim** from `mindattic.com/index.htm`
+so the frontpage Data page composes reusable `.idea`s instead of carrying engine code inline:
+- **`widget.tabboard`** — the project-board engine (`mindattic-tabs-css` + the board script: panel
+  lift, stable procedural tile art, per-section localStorage persistence, single-active click
+  handling) exposing `window.TabBoard.build/art/images/refresh` for boards built from page data.
+- **`widget.pinfooter`** — the UiUx PINFOOTER bundle (`.pin-when-short`). The authentic
+  implementation and class contract; the generic baseline `widget.footer` (`.ma-footer`) remains
+  for non-mindattic sites.
+- **`widget.websnapshot`** — the UiUx WEBSNAPSHOT bundle (`.web-snapshot` framed screenshot viewer,
+  fetch or inline-base64 mode).
+
+The solution count is now **7 Themes, 29 Widgets** (36 components). Adaptations are confined to:
+TabBoard's empty `PROJECT_IMAGES` map became the `TabBoard.images` registry; each bundle gained an
+idempotence guard + a DOM-swap re-init adapter (Blazor hosts replace the prerendered DOM). The
+frontpage page record drops the corresponding inline CSS/JS and places three `{{tokens}}` instead —
+its PageJs keeps only CONTENT (synopses, URLs, tabify converters); Theme + fonts + effects continue
+to come from the installed Theme.Cyberspace / Widget.AtticFont / Widget.OutfitFont /
+Widget.Cyberspace `.idea`s.
