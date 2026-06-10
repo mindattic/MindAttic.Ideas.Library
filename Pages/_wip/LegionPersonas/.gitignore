@@ -1,7 +1,0 @@
-bin/
-obj/
-dist/
-*.user
-.vs/
-publish/
-[Tt]est[Rr]esults/

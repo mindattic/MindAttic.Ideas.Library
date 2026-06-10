@@ -85,10 +85,13 @@ updated: 2026-06-09
 
 ## Epic E — Pages stay records
 
-- **MAIL-US-E1 ✅** As a maintainer, frozen page source is preserved losslessly without polluting the build.
-  *Given `Pages/_wip/*` with `*.csproj.wip` + an empty `Directory.Build.props` and absence from `.slnx`,
-  When the solution builds, Then nothing under `Pages/_wip` compiles or packs.* *(verified by the clean
-  solution build and [`Pages/_wip/README.md`](../Pages/_wip/README.md); rule at [MAIL-LAW-8](BIBLE.md#MAIL-LAW-8).)*
+- **MAIL-US-E1 🗑️** As a maintainer, frozen page source is preserved losslessly without polluting the build.
+  *(original spec — audit log: "Given `Pages/_wip/*` with `*.csproj.wip` + an empty `Directory.Build.props`
+  and absence from `.slnx`, When the solution builds, Then nothing under `Pages/_wip` compiles or packs.")*
+  **Cut 2026-06-09 by [MAIL-A4](AMENDMENTS.md#MAIL-A4):** the parked sources are no longer applicable —
+  the frontpage is assembled verbatim from mindattic.com's `index.htm` into a Data page, and
+  LegionPersonas ships as `Widget.LegionPersonas`. The `Pages/` tree was deleted; history stays in git.
+  [MAIL-LAW-8](BIBLE.md#MAIL-LAW-8) (pages are DB records, never `.idea`s) is unchanged.
 
 ## Priority backlog
 
@@ -96,7 +99,6 @@ updated: 2026-06-09
    — the remaining ⬜ test gap in [MAIL-§6](BIBLE.md#MAIL-§6). (D3's pack round-trip and B3's
    install/serve were proven 2026-06-09.)
 2. **MAIL-US-A4** — observe the 15 baseline-widget demos interactively (build/pack already proven).
-3. Port `Pages/_wip` sources into Page records / compiled Widgets (see [`Pages/_wip/README.md`](../Pages/_wip/README.md)).
 
 ### Audit log
 

@@ -46,9 +46,9 @@ three of its consumers (raw HTML pages, standalone Blazor apps, and the CMS).
 - **NOT a NuGet library.** Every component is `IsPackable=false`; the unit of distribution is the
   `.idea` (a guarded zip, [HOUSE-LAW-5](../../MindAttic.HouseRules.md)), never a package.
 - **NOT a place for Pages.** A Page is a CMS **database record** (Html/Css/Js + tags), not a `.idea`.
-  The frozen Blazor page sources under [`Pages/_wip/`](../Pages/_wip/README.md) are preserved losslessly,
-  are **not buildable**, and are **not in the solution** — they are source to be ported into Page records
-  (or into a compiled Widget) later.
+  The formerly-parked Pages/_wip sources were deleted as no longer applicable
+  ([MAIL-A4](AMENDMENTS.md#MAIL-A4)): the frontpage is assembled verbatim from mindattic.com's
+  `index.htm` into a Data page, and LegionPersonas ships as `Widget.LegionPersonas`. History stays in git.
 - **NOT a multi-DLL bundle.** Abstractions (and the framework Components it carries) are kept out of
   `bin/` (`Private=false` + `ExcludeAssets=runtime`); the validator forbids host assemblies in a packed
   `bin/`, so each packed `bin/` holds exactly one DLL.
@@ -71,7 +71,7 @@ three of its consumers (raw HTML pages, standalone Blazor apps, and the CMS).
    │   Themes/      ThemeBase   → ThemeCssUrls; chrome + ONE @Body hole                │
    │   Widgets/     WidgetBase  → StylesheetUrls / inline markup; self-contained       │
    │                (ControlBase in Abstractions; no standalone Controls folder yet)   │
-   │   Pages/_wip/  frozen page source (*.csproj.wip; NOT built, NOT in .slnx)         │
+   │                (no Pages/ — pages are CMS DB records; MAIL-LAW-8, MAIL-A4)        │
    │                                                                                   │
    │   each component: assets/ (the bundle) ── pack ──► dist/*.idea                    │
    └───────────────────────────────────────────────────────────────────────────────-─┘
@@ -153,8 +153,9 @@ The CMS is standalone; it installs packed `.idea`s as **optional** content and n
 dependency on anything here. The dependency arrow points one way only.
 
 ### {#MAIL-LAW-8} Pages are records, not `.idea`s.
-Themes, Widgets, and Controls ship as `.idea`. A Page is a CMS database record. Frozen page source under
-`Pages/_wip/` stays out of the solution and is never packed.
+Themes, Widgets, and Controls ship as `.idea`. A Page is a CMS database record. No page source lives in
+this repo at all — the once-parked Pages/_wip tree was deleted as no longer applicable
+([MAIL-A4](AMENDMENTS.md#MAIL-A4)); history stays in git.
 
 ## 6. Verified state {#MAIL-§6}
 
@@ -165,7 +166,7 @@ Themes, Widgets, and Controls ship as `.idea`. A Page is a CMS database record. 
 | Packed artifacts present | ✅ | [`dist/`](../dist) holds 33 `*.idea` — one per catalogued component in [`components.json`](data/components.json). The 15 baseline-set artifacts were packed (`--wwwroot assets`) and compose-graph verified (`ma-idea verify`) 2026-06-09. |
 | Automated tests | ⬜ | No test project exists in the repo (RCL component library; verification is build + the HelloWorld interactive smoke test + per-component `demo.html`). See [MAIL-§8](#MAIL-§8). |
 | `pack` round-trip | ✅ | Re-run 2026-06-09: 15 baseline widgets packed (`ma-idea pack --wwwroot assets`); `ma-idea verify ./dist` → "OK — every declared dependency resolves" across all 33. |
-| Plugin→Widget rename | ✅ | Rename complete: `Widgets/` + `MindAttic.Ideas.Widget.*` namespaces throughout; solution builds clean 0/0. Frozen `Pages/_wip` prose retains "Plugin" as historical record (intentional). MAIL-A1. |
+| Plugin→Widget rename | ✅ | Rename complete: `Widgets/` + `MindAttic.Ideas.Widget.*` namespaces throughout; solution builds clean 0/0. MAIL-A1. (The frozen Pages/_wip prose that retained "Plugin" was deleted with the tree — MAIL-A4.) |
 | Textbox Control→Widget fold | ✅ | Textbox lives under `Widgets/`, `@inherits WidgetBase`, namespace `MindAttic.Ideas.Widget.Textbox`; no `Controls/` folder on disk. `components.json` and `.slnx` both record Widget kind. MAIL-A2. |
 
 ## 7. Active frontier {#MAIL-§7}
@@ -173,7 +174,6 @@ Themes, Widgets, and Controls ship as `.idea`. A Page is a CMS database record. 
 - [RFC 0001](rfc/0001-component-test-harness.md) — a smoke-test harness so component "done" is build-proven,
   not asserted (closing the ⬜ in [MAIL-§6](#MAIL-§6) against [HOUSE-LAW-8](../../MindAttic.HouseRules.md)).
 - [RFC 0002](rfc/0002-uiux-source-to-idea-pipeline.md) — raw UiUx source → `.idea` generator (deferred).
-- Port the frozen [`Pages/_wip`](../Pages/_wip/README.md) sources into CMS Page records / compiled Widgets.
 - Backlog and acceptance criteria: [`USER_STORIES.md`](USER_STORIES.md).
 
 ## 8. Quality bar {#MAIL-§8}
@@ -203,5 +203,5 @@ A component change is **done** only when:
 - **`[Uses]` / `<CmsInclude>`** — declare/render a dependency on another installed component by string id.
 - **Abstractions** — `MindAttic.Ideas.Abstractions`, the frozen SDK (the only thing components compile
   against); supplies `ThemeBase` / `WidgetBase` / `ControlBase`, `[Idea]`, `[Uses]`, `CmsInclude`.
-- **Page record** — a CMS database row (Html/Css/Js + tags); NOT a `.idea`. See [`Pages/_wip`](../Pages/_wip/README.md).
+- **Page record** — a CMS database row (Html/Css/Js + tags); NOT a `.idea` ([MAIL-LAW-8](#MAIL-LAW-8), [MAIL-A4](AMENDMENTS.md#MAIL-A4)).
 - **RCL** — Razor Class Library, the project type of every component (`Microsoft.NET.Sdk.Razor`).

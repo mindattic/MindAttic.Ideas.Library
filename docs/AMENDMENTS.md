@@ -75,3 +75,23 @@ Tabs (`ma-tabs-board`) is its project board, Gallery its books grid, Footer its 
 
 **Migration / status.** Additive only — no existing component changed identity. All 33 components
 build clean (0/0) and pack to [`dist/`](../dist).
+
+## MAIL-A4 — `Pages/_wip` deleted: the frozen page sources are no longer applicable (refines MAIL-LAW-8) {#MAIL-A4}
+
+**What changed (2026-06-09).** The `Pages/` tree (frozen `Pages/_wip/LegionPersonas` and
+`Pages/_wip/MindAtticFrontpage` sources, kept since the repo's founding as "source to be ported into
+Page records later") was **deleted**. The rule itself stands — Pages are CMS database records, never
+`.idea`s (MAIL-LAW-8) — only the parked source is gone.
+
+**Why no longer applicable.**
+- The MindAttic frontpage now exists as a **Data page** in the CMS, assembled *verbatim* from the
+  live `mindattic.com/index.htm` by the CMS repo's `tools/import-frontpage.ps1` (MAI-A21). The
+  authoritative source is the real site's single file, not a parked Blazor port — so the frozen
+  `MindAtticFrontpage` copy can never be the porting source again.
+- LegionPersonas already lives on as the compiled **`Widget.LegionPersonas`** `.idea`
+  ([widget.legionpersonas](data/components.json)); a page that wants it drops the token.
+- History is preserved in git (this deletion is one commit; the sources remain retrievable at any
+  prior ref). Nothing in the solution referenced the tree (`*.csproj.wip`, never in `.slnx`).
+
+**Doc impact.** Bible §3/§4/glossary and story MAIL-US-E1 (🗑️ cut) updated; the "port `Pages/_wip`"
+backlog item is retired.

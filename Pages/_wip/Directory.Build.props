@@ -1,5 +1,0 @@
-<Project>
-  <!-- Stop inheritance: the library's root Directory.Build.props (Abstractions reference, pack props)
-       must NOT apply to anything under _wip. These are FROZEN page sources, not buildable library
-       components. This empty file ends the Directory.Build.props chain here. -->
-</Project>
