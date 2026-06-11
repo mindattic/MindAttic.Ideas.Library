@@ -9,7 +9,6 @@
             <h2>@Persona.Name</h2>
             <div class="muted small">@Persona.Id</div>
         </div>
-        <button class="close-btn" type="button" @onclick="OnClose" aria-label="Close">✕</button>
     </div>
 
     <p class="persona-bio">@Persona.Bio</p>
@@ -43,7 +42,6 @@
 
 @code {
     [Parameter, EditorRequired] public Persona Persona { get; set; } = default!;
-    [Parameter] public EventCallback OnClose { get; set; }
 
     private RenderFragment Trait(string label, string? value) => builder =>
     {
