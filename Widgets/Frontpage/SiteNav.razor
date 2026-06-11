@@ -19,7 +19,7 @@
         <section class="siteNav-section @(isOpen ? "is-open" : null)">
             <h2 class="siteNav-headWrap">
                 <button type="button" class="siteNav-head" @onclick="() => ToggleSection(s)"
-                        aria-expanded="@isOpen">
+                        aria-expanded="@(isOpen ? "true" : "false")">
                     <span class="siteNav-head-title">@s.Title</span>
                     <span class="siteNav-head-meta">
                         @if (s.Kind != "diagram") { <span class="siteNav-head-count">@s.Pages.Count</span> }

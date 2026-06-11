@@ -61,7 +61,10 @@
       root.addEventListener('mouseenter', stop);
       root.addEventListener('mouseleave', play);
       root.addEventListener('focusin', stop);
-      root.addEventListener('focusout', play);
+      root.addEventListener('focusout', function (e) {
+        if (root.contains(e.relatedTarget)) return; // focus moved within the carousel
+        play();
+      });
       play();
     }
     show(0);

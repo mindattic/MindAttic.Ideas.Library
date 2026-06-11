@@ -9,7 +9,7 @@
  * (index, phase), so the Node-built SVG posters and the browser canvas agree by construction.
  *
  * Indices 0..83 reproduce Cyberspace's original catalog verbatim minus the harmonograph (band 0); the
- * remaining bands sweep parametric families (prisms, antiprisms, star polygons, rose/Lissajous/
+ * remaining bands sweep parametric families (prisms, antiprisms, star polygons, rose/hypotrochoid/
  * cycloid curves, torus knots, the Gielis superformula, fractals) up to 1024.
  *
  * Classic browser <script> AND require()-able under Node (UMD), no bundler.
@@ -326,11 +326,11 @@
         for (i = 0; i <= 300; i++) { f = i / 300; a = f * turns * TAU + t * 0.05 + Math.PI; r = f * maxR; if (i === 0) p.moveTo(Math.cos(a) * r, Math.sin(a) * r); else p.lineTo(Math.cos(a) * r, Math.sin(a) * r); }
         p.stroke();
     }
-    function drawLissajous(p, t) {
-        var a = 3, b = 2, R = 38, i, phi, x, y;
+    function drawHypotrochoid73(p, t) {
+        var R = 7, r = 3, d = 4.5, k = (R - r) / r, s = 38 / (R - r + d), i, u, x, y;
         p.strokeStyle = 'rgba(70,210,170,0.60)'; p.lineWidth = 0.8;
         p.beginPath();
-        for (i = 0; i <= 400; i++) { phi = (i / 400) * TAU; x = R * Math.sin(a * phi + t * 0.04); y = R * Math.sin(b * phi); if (i === 0) p.moveTo(x, y); else p.lineTo(x, y); }
+        for (i = 0; i <= 600; i++) { u = (i / 600) * TAU * r + t * 0.03; x = s * ((R - r) * Math.cos(u) + d * Math.cos(k * u)); y = s * ((R - r) * Math.sin(u) - d * Math.sin(k * u)); if (i === 0) p.moveTo(x, y); else p.lineTo(x, y); }
         p.stroke();
     }
     function drawStar5(p, t) {
@@ -376,13 +376,11 @@
         p.beginPath(); p.arc(0, 0, R, 0, TAU); p.stroke();
     }
     function drawCardioid(p, t) {
-        var a = 18, rot = t * 0.012, i, th, r;
+        var R = 5, r = 2, d = 2.5, k = (R - r) / r, s = 38 / (R - r + d), i, u, x, y;
         p.strokeStyle = TEAL_STRONG; p.lineWidth = 0.8;
         p.beginPath();
-        for (i = 0; i <= 360; i++) { th = (i / 360) * TAU; r = a * (1 + Math.cos(th)); if (i === 0) p.moveTo(r * Math.cos(th + rot), r * Math.sin(th + rot)); else p.lineTo(r * Math.cos(th + rot), r * Math.sin(th + rot)); }
+        for (i = 0; i <= 400; i++) { u = (i / 400) * TAU * r + t * 0.015; x = s * ((R - r) * Math.cos(u) + d * Math.cos(k * u)); y = s * ((R - r) * Math.sin(u) - d * Math.sin(k * u)); if (i === 0) p.moveTo(x, y); else p.lineTo(x, y); }
         p.stroke();
-        p.strokeStyle = CYAN_FAINT; p.lineWidth = 0.5;
-        p.beginPath(); p.arc(0, 0, a * 2, 0, TAU); p.stroke();
     }
     function drawAsteroid(p, t) {
         var R = 36, rot = t * 0.02, i, ph, x, y, a;
@@ -541,7 +539,7 @@
 
     var LEGACY_PARAM = {
         flower: drawFlower, metatron: drawMetatron, vesica: drawVesica, spiral: drawSpiral,
-        lissajous: drawLissajous, star5: drawStar5, torus: drawTorus, helix: drawHelix,
+        lissajous: drawHypotrochoid73, star5: drawStar5, torus: drawTorus, helix: drawHelix,
         rose: drawRose, cardioid: drawCardioid, asteroid: drawAsteroid, epicycloid: drawEpicycloid,
         web: drawWeb, trefoil: drawTrefoil, fig8knot: drawFig8Knot, koch: drawKoch,
         sierpinski: drawSierpinski, klein: drawKlein, hyperpara: drawHyperPara,
@@ -549,7 +547,7 @@
     };
     var LEGACY_PARAM_LABEL = {
         flower: 'flower of life', metatron: "metatron's cube", vesica: 'vesica piscis', spiral: 'archimedean spiral',
-        lissajous: 'lissajous 3:2', star5: 'pentagram', torus: 'torus rings', helix: 'helix',
+        lissajous: 'hypotrochoid 7/3', star5: 'pentagram', torus: 'torus rings', helix: 'helix',
         rose: 'rose k=3', cardioid: 'cardioid', asteroid: 'astroid', epicycloid: 'epicycloid',
         web: 'radial web', trefoil: 'trefoil knot', fig8knot: 'figure-8 knot', koch: 'koch snowflake',
         sierpinski: 'sierpinski triangle', klein: 'klein bottle', hyperpara: 'hyperbolic paraboloid',
@@ -677,18 +675,21 @@
             sum++;
         }
     })();
-    // Band 8 — Lissajous, coprime (a,b), a≤b, δ∈{0,π/4,π/2}
+    // Band 8 — hypotrochoid (R,r,d), lowest-terms; inner-rolling spirograph family
     (function () {
-        var target = catalog.length + 71, deltas = [0, Math.PI / 4, Math.PI / 2], di = 0;
-        outer: for (var b = 2; b < 30; b++) for (var a = 1; a <= b; a++) {
-            if (gcd(a, b) !== 1) continue; if (a === 1 && b === 1) continue;
-            for (di = 0; di < deltas.length; di++) {
-                if (catalog.length >= target) break outer;
-                (function (a, b, dl) {
-                    add(specCurve('param2d', 'lissajous ' + a + ':' + b, 'liss:' + a + ':' + b + ':' + dl.toFixed(2),
-                        function (u, t) { return [38 * Math.sin(a * u + dl + t * 0.04), 38 * Math.sin(b * u)]; },
-                        { span: TAU, samples: 480, color: 'rgba(70,210,170,0.60)' }));
-                })(a, b, deltas[di]);
+        var target = catalog.length + 71, ds = [0.6, 1.0, 1.5, 2.2];
+        outer: for (var R = 3; R < 50; R++) {
+            for (var r = 1; r < R; r++) {
+                if (gcd(R, r) !== 1) continue;
+                for (var j = 0; j < ds.length; j++) {
+                    if (catalog.length >= target) break outer;
+                    (function (R, r, dm) {
+                        var d = r * dm, k = (R - r) / r, s = 38 / (R - r + d);
+                        add(specCurve('param2d', 'hypotrochoid ' + R + '/' + r, 'hypot:' + R + '/' + r + ':' + dm,
+                            function (u, t) { var ph = u + t * 0.01; return [s * ((R - r) * Math.cos(ph) + d * Math.cos(k * ph)), s * ((R - r) * Math.sin(ph) - d * Math.sin(k * ph))]; },
+                            { span: TAU * r, samples: 600, color: 'rgba(70,210,170,0.65)' }));
+                    })(R, r, ds[j]);
+                }
             }
         }
     })();

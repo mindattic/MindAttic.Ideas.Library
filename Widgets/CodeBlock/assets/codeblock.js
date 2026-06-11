@@ -24,6 +24,7 @@
     copy.textContent = 'Copy';
     copy.addEventListener('click', function () {
       var text = pre.querySelector('code').textContent;
+      if (!navigator.clipboard) return; // clipboard API needs a secure context
       navigator.clipboard.writeText(text).then(function () {
         copy.textContent = 'Copied';
         copy.classList.add('ma-code-copied');
@@ -31,7 +32,7 @@
           copy.textContent = 'Copy';
           copy.classList.remove('ma-code-copied');
         }, 1600);
-      });
+      }).catch(function () { /* permission denied — leave the button as "Copy" */ });
     });
     pre.appendChild(copy);
   }

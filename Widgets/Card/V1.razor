@@ -37,6 +37,11 @@ else
     /// <summary>Optional small footer line (e.g. a date or category).</summary>
     [Parameter] public string? Footer { get; set; }
 
+    // Single quotes are not HTML-encoded by Blazor, so escape them to keep Image inside the url('…') string.
+    private string? BackgroundStyle => string.IsNullOrWhiteSpace(Image)
+        ? null
+        : $"background-image: url('{Image.Replace("'", "%27")}');";
+
     private RenderFragment Inner => @<text>
         @if (!string.IsNullOrWhiteSpace(ImageClass))
         {
@@ -45,7 +50,7 @@ else
         else if (!string.IsNullOrWhiteSpace(Image))
         {
             <div class="ma-card-image" role="img" aria-label="@(Title ?? "")"
-                 style="background-image: url('@Image');"></div>
+                 style="@BackgroundStyle"></div>
         }
         <div class="ma-card-body">
             @if (!string.IsNullOrWhiteSpace(Title))

@@ -8,9 +8,9 @@
    data-*). Styled by its own bundled css, served from this .idea's wwwroot at /_ideas/Widget/textbox/1/. *@
 <link rel="stylesheet" href="/_ideas/Widget/textbox/1/textbox.css" />
 <div class="ma-field">
-    <input id="@_id" class="ma-field-input" type="@Type" value="@Value"
-           placeholder=" " @attributes="Attributes" />
-    <label for="@_id" class="ma-field-label">@Label</label>
+    <input class="ma-field-input" type="@Type" value="@Value"
+           placeholder=" " @attributes="Attributes" id="@InputId" />
+    <label for="@InputId" class="ma-field-label">@Label</label>
 </div>
 
 @code {
@@ -24,5 +24,12 @@
     [Parameter] public string? Value { get; set; }
 
     // Stable per-instance id so the <label for> binds to this input (unique across multiple placements).
+    // A caller-supplied id (via the attribute bag) wins, and the label must follow it — so the explicit
+    // id sits after the @attributes spread and both elements read the same resolved value.
     private readonly string _id = "ma-tb-" + Guid.NewGuid().ToString("N").Substring(0, 8);
+
+    private string InputId =>
+        Attributes is not null && Attributes.TryGetValue("id", out var custom) && custom is not null
+            ? custom.ToString()!
+            : _id;
 }

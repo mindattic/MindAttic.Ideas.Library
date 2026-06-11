@@ -46,6 +46,9 @@
    right preview panel (1:1.41 DVD-case image + description).
    ============================================================ */
 .siteNav {
+    max-width: 960px;
+    width: calc(100% - 2rem);
+    margin: 2rem auto;
     display: flex;
     flex-direction: column;
     border: 1px solid #30363d;

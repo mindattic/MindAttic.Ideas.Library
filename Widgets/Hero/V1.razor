@@ -61,7 +61,8 @@
     // ma-hero-img switches on the readability overlay + light text whichever way the image arrived.
     private string ImageClasses => HasImage ? $"ma-hero-img {ImageClass}".TrimEnd() : "";
 
+    // Single quotes are not HTML-encoded by Blazor, so escape them to keep Image inside the url('…') string.
     private string? BackgroundStyle => string.IsNullOrWhiteSpace(Image)
         ? null
-        : $"background-image: url('{Image}');";
+        : $"background-image: url('{Image.Replace("'", "%27")}');";
 }

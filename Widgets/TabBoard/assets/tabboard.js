@@ -124,7 +124,7 @@
         if (repo) {
           name = repo.split('/').pop();
         } else if (panel.id) {
-          var btn = document.querySelector('button[data-target="' + panel.id + '"] .tabButton-name');
+          var btn = document.querySelector('button[data-target="' + CSS.escape(panel.id) + '"] .tabButton-name');
           if (btn) name = btn.textContent.trim();
         }
         if (!name) continue;

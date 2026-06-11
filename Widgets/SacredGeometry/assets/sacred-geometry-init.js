@@ -14,6 +14,8 @@
  */
 (function () {
     'use strict';
+    if (window.__maSacredInit) return; // re-evaluation would stack another rAF loop + MutationObserver
+    window.__maSacredInit = true;
 
     function start(SG) {
         var visible = new Set();

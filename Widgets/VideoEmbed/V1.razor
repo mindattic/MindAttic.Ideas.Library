@@ -12,7 +12,7 @@
     <div class="ma-video">
         <iframe src="@_embedUrl" title="@(Title ?? "Video")"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen referrerpolicy="no-referrer"></iframe>
+                allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
     </div>
 }
 else if (!string.IsNullOrWhiteSpace(Url))
@@ -42,7 +42,7 @@ else if (!string.IsNullOrWhiteSpace(Url))
         var path = u.AbsolutePath.Trim('/');
 
         if (host is "youtu.be")
-            return Embed(path);
+            return Embed(path.StartsWith("shorts/") ? path["shorts/".Length..] : path);
         if (host.EndsWith("youtube.com") || host.EndsWith("youtube-nocookie.com"))
         {
             if (path.StartsWith("embed/") || path.StartsWith("shorts/")) return Embed(path[(path.IndexOf('/') + 1)..]);
