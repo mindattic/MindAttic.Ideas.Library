@@ -15,12 +15,11 @@ try {
   if ([string]::IsNullOrWhiteSpace($digest)) { Write-Output '{}'; return }
 
   $preamble = @"
-[MindAttic.Ideas.Library — Codex digest, AUTHORITATIVE]
-The following is the authoritative source of truth for this repo (the first-party .idea component
-library: Themes/Widgets/Controls). It is generated from docs/BIBLE.md. Treat its laws and definitions
-as binding; when in doubt, open docs/BIBLE.md, docs/USER_STORIES.md, docs/AMENDMENTS.md, and
-docs/data/components.json. An amendment always wins over the bible. Inherited org-wide laws live in
-../MindAttic.HouseRules.md.
+[MindAttic.Ideas.Library -- Codex digest, AUTHORITATIVE]
+The following is the authoritative source of truth for this repo (the archived first-party .idea
+component library: Themes/Widgets). It is generated from docs/BIBLE.md. Treat its laws and definitions
+as binding; when in doubt, open docs/BIBLE.md, docs/USER_STORIES.md and docs/data/components.json.
+Inherited org-wide laws live in ../MindAttic.HouseRules.md.
 
 "@
 

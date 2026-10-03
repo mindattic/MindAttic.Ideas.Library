@@ -6,7 +6,7 @@ Retired first-party library of .idea themes and widgets for the MindAttic.Ideas 
 
 ![The Cyberspace theme's raw-HTML demo page, styled only by its own assets/theme.css](docs/images/cyberspace-theme-demo.png)
 
-This repository is retired. On 2026-06-12 the library was merged into the CMS repo as [MindAttic.Ideas/library](https://github.com/mindattic/MindAttic.Ideas/tree/master/library) (amendment MAI-A23 in MindAttic.Ideas), and all new work happens there. This repo is kept as history; its last commit is from 2026-06-10.
+This repository is retired. On 2026-06-12 the library was merged into the CMS repo as [MindAttic.Ideas/library](https://github.com/mindattic/MindAttic.Ideas/tree/master/library), and all new work happens there. The GitHub repo is archived; it holds the component sources as they stood at that merge.
 
 ## Why
 
@@ -29,8 +29,8 @@ What the solution builds (`MindAttic.Ideas.Library.slnx`):
 
 - Themes (7): Cyberspace, Light, Dark, Spring, Summer, Autumn, Winter.
 - MindAttic-specific widgets: OutfitFont, AtticFont, BackHomeM, Cyberspace (effects), SacredGeometry, Tooltip, TableOfContents, LegionPersonas, Frontpage, HelloWorld, Textbox.
-- Baseline widget set (MAIL-A3): NavMenu, Breadcrumbs, Hero, Card, Accordion, Tabs, Gallery, Carousel, Callout, CodeBlock, VideoEmbed, ContactForm, SocialLinks, BackToTop, Footer.
-- The mindattic.com set (MAIL-A5): TabBoard, PinFooter, WebSnapshot.
+- Baseline widget set: NavMenu, Breadcrumbs, Hero, Card, Accordion, Tabs, Gallery, Carousel, Callout, CodeBlock, VideoEmbed, ContactForm, SocialLinks, BackToTop, Footer.
+- The mindattic.com set: TabBoard, PinFooter, WebSnapshot.
 
 The `Widgets/ModalPopup` project exists on disk but is not listed in the solution. The full catalog, with keys, versions and composition, is [docs/data/components.json](docs/data/components.json).
 
@@ -68,7 +68,7 @@ dotnet run --project ../MindAttic.Ideas/src/MindAttic.Ideas.Sdk -- pack `
 dotnet build -c Release MindAttic.Ideas.Library.slnx
 ```
 
-The widgets derive from `WidgetBase`, which today's MindAttic.Ideas SDK has deleted (the Widget kind split into Plugin and Component, MAI-A26). Expect these projects not to build against a current MindAttic.Ideas checkout.
+The widgets derive from `WidgetBase`, which today's MindAttic.Ideas SDK has deleted (the Widget kind split into Plugin and Component). These projects do not build against a current MindAttic.Ideas checkout (`error CS0246` on `WidgetBase`).
 
 ## Project layout
 
@@ -76,27 +76,25 @@ The widgets derive from `WidgetBase`, which today's MindAttic.Ideas SDK has dele
 Themes/          Cyberspace, Light, Dark, Spring, Summer, Autumn, Winter
 Widgets/         one small project per widget, each with V1 code, assets/ and often demo.html
 dist/            packed *.idea output (not present in this checkout)
-docs/            Codex canon: BIBLE, AMENDMENTS, USER_STORIES, rfc/, data/components.json
+docs/            Codex canon: BIBLE, AMENDMENTS, USER_STORIES, data/components.json
 tools/codex.ps1  docs doctor and digest
 Directory.Build.props         shared settings and the one Abstractions reference
 MindAttic.Ideas.Library.slnx  the solution
 ```
 
-There are no Pages here: pages are CMS database records (MAIL-LAW-8), and the parked page sources were deleted (MAIL-A4).
+There are no Pages here: pages are CMS database records (MAIL-LAW-8).
 
 ## Limitations
 
 - Retired: no further changes land here. The live library, renamed to Themes, Plugins and Components, is in MindAttic.Ideas.
 - Uses the pre-split `Widget` vocabulary and `WidgetBase`; see the build note above.
-- The Light and Dark themes here were later merged into the single `Ideas` theme in MindAttic.Ideas (MAI-A47).
 
 ## Documentation
 
 - [docs/BIBLE.md](docs/BIBLE.md): what the library is and is not, its architecture and laws.
-- [docs/AMENDMENTS.md](docs/AMENDMENTS.md): the append-only change log (MAIL-A1 onward).
+- [docs/AMENDMENTS.md](docs/AMENDMENTS.md): pending decisions not yet folded into the bible (normally empty).
 - [`docs/USER_STORIES.md`](docs/USER_STORIES.md): proof-cited stories.
 - [docs/data/components.json](docs/data/components.json): the machine-readable catalog of every shipped `.idea`.
-- [docs/rfc](docs/rfc): design notes, including the component test harness and the UiUx-to-idea pipeline.
 - [CLAUDE.md](CLAUDE.md): working rules for agents in this repo.
 
 Run the docs check with `powershell -ExecutionPolicy Bypass -File tools\codex.ps1 doctor`.
