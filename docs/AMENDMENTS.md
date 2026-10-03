@@ -116,3 +116,15 @@ frontpage page record drops the corresponding inline CSS/JS and places three `{{
 its PageJs keeps only CONTENT (synopses, URLs, tabify converters); Theme + fonts + effects continue
 to come from the installed Theme.Cyberspace / Widget.AtticFont / Widget.OutfitFont /
 Widget.Cyberspace `.idea`s.
+
+## MAIL-A6 — Repository retired: merged into MindAttic.Ideas `library/` (records MAI-A23; supersedes the bible's live `dist/` citations) {#MAIL-A6}
+**What changed.** On 2026-06-12 this library was merged into the CMS repo as `MindAttic.Ideas/library`
+(amendment MAI-A23 in MindAttic.Ideas); all new work happens there and this repo is kept as history (its
+README already says so). Recorded 2026-10-03 so the canon matches.
+
+**Bible.** A "Retired" note is added under the title. The two links to `../dist` (§4.2 `.idea` artifact,
+§6 "Packed artifacts present") are unlinked and marked superseded: `dist/` is git-ignored build output (`/dist/` in
+`.gitignore`) and does not exist in this repo, so the 2026-06-09 evidence stands as dated history rather
+than a checkable path. Nothing else in the bible is re-verified or changed.
+
+**Migration.** None. Work on the library in `MindAttic.Ideas/library`.

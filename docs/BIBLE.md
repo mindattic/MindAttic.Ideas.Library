@@ -4,10 +4,13 @@ project: MindAttic.Ideas.Library
 code: MAIL
 layer: bible
 status: living
-updated: 2026-06-09
+updated: 2026-10-03
 ---
 
 # MindAttic.Ideas.Library — Project Bible
+
+> **Retired.** Merged into [MindAttic.Ideas](../../MindAttic.Ideas) under `library/` on 2026-06-12;
+> this bible is kept as history. See [MAIL-A6](AMENDMENTS.md#MAIL-A6).
 
 > Single source of truth for what MindAttic.Ideas.Library IS, is NOT, and the rules that keep it
 > coherent. The [README](../README.md) says how to build/run and pack; this says how to think
@@ -100,7 +103,7 @@ Abstractions reference live once in [`Directory.Build.props`](../Directory.Build
   `ControlBase`, typed `[Parameter]` props plus pass-through `Attributes`.
 - **Asset bundle** — a component's `assets/` folder (the single source of truth); becomes the package
   `wwwroot/` at pack time and is served under the component **mount** `/_ideas/<Kind>/<key>/<version>/`.
-- **`.idea` artifact** — the packed, uploadable zip in [`dist/`](../dist) (one per component).
+- **`.idea` artifact** — the packed, uploadable zip in `dist/` (one per component; **Superseded by [MAIL-A6](AMENDMENTS.md#MAIL-A6)**: `dist/` is git-ignored build output and is not present in this retired repo).
 
 ### 4.3 Key services (VERBS) {#MAIL-§4.3}
 - **build** — `dotnet build -c Release <project>` (or the whole `.slnx`); compiles each RCL to a single
@@ -164,7 +167,7 @@ this repo at all — the once-parked Pages/_wip tree was deleted as no longer ap
 |---|---|---|
 | Full solution compiles | ✅ | `dotnet build -c Release MindAttic.Ideas.Library.slnx` → **Build succeeded, 0 Warning(s), 0 Error(s)**; all 36 component DLLs + Abstractions emitted (net10.0). Verified 2026-06-09. |
 | Smallest widget builds standalone | ✅ | `dotnet build -c Release Widgets/HelloWorld` → succeeded, 0/0. Verified 2026-06-07. |
-| Packed artifacts present | ✅ | [`dist/`](../dist) holds 36 `*.idea` — one per catalogued component in [`components.json`](data/components.json). The 15 baseline-set artifacts were packed (`--wwwroot assets`) and compose-graph verified (`ma-idea verify`) 2026-06-09. |
+| Packed artifacts present | ✅ (2026-06-09; **Superseded by [MAIL-A6](AMENDMENTS.md#MAIL-A6)**) | ~~`dist/`~~ (git-ignored, not present in the retired repo) held 36 `*.idea` — one per catalogued component in [`components.json`](data/components.json). The 15 baseline-set artifacts were packed (`--wwwroot assets`) and compose-graph verified (`ma-idea verify`) 2026-06-09. |
 | Automated tests | ⬜ | No test project exists in the repo (RCL component library; verification is build + the HelloWorld interactive smoke test + per-component `demo.html`). See [MAIL-§8](#MAIL-§8). |
 | `pack` round-trip | ✅ | Re-run 2026-06-09: 15 baseline widgets packed (`ma-idea pack --wwwroot assets`); `ma-idea verify ./dist` → "OK — every declared dependency resolves" across all 36 (re-verified with the MAIL-A5 set 2026-06-09). |
 | Plugin→Widget rename | ✅ | Rename complete: `Widgets/` + `MindAttic.Ideas.Widget.*` namespaces throughout; solution builds clean 0/0. MAIL-A1. (The frozen Pages/_wip prose that retained "Plugin" was deleted with the tree — MAIL-A4.) |
